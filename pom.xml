@@ -52,6 +52,14 @@
 		<module>tracking-util</module>
 	</modules>
 
+	<repositories>
+		<repository>
+			<id>safranek</id>
+			<name>ILONA - Snapshot</name>
+			<url>http://safranek.iit.uni-miskolc.hu:8081/nexus/content/repositories/ILONA-Snapshots/</url>
+		</repository>
+	</repositories>
+	
 	<distributionManagement>
 		<snapshotRepository>
 			<id>safranek</id>
