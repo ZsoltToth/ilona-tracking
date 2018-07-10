@@ -1,36 +1,118 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>uni.miskolc.ips.ilona</groupId>
-		<artifactId>tracking</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-	<groupId>uni.miskolc.ips.ilona</groupId>
-	<artifactId>tracking-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>tracking-service</name>
-	<url>http://maven.apache.org</url>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit.version>4.12</junit.version>
-		<tracking.model.version>0.0.1-SNAPSHOT</tracking.model.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<!-- Ilona module dependencies -->
-		<dependency>
-			<groupId>uni.miskolc.ips.ilona</groupId>
-			<artifactId>tracking-model</artifactId>
-			<version>${tracking.model.version}</version>
-		</dependency>
-	</dependencies>
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>uni.miskolc.ips.ilona</groupId>
+        <artifactId>tracking</artifactId>
+        <version>2.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>uni.miskolc.ips.ilona</groupId>
+    <artifactId>tracking-service</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
+    <name>tracking-service</name>
+    <url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>4.12</junit.version>
+        <tracking.model.version>0.0.1-SNAPSHOT</tracking.model.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+            <version>${spring.integration.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-stream</artifactId>
+            <version>${spring.integration.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-file</artifactId>
+            <version>${spring.integration.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-http</artifactId>
+            <version>${spring.integration.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- Ilona module dependencies -->
+        <dependency>
+            <groupId>uni.miskolc.ips.ilona</groupId>
+            <artifactId>tracking-model</artifactId>
+            <version>${tracking.model.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.3.1</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName>uni.miskolc.ips.ilona.measurement.controller.dto</packageName>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/xsd/</source>
+                    </sources>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 </project>
