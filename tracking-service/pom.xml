@@ -77,6 +77,11 @@
             <artifactId>tracking-model</artifactId>
             <version>${tracking.model.version}</version>
         </dependency>
+        <dependency>
+            <groupId>uni.miskolc.ips.ilona.measurement</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

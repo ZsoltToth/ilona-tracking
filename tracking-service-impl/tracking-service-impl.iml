@@ -38,6 +38,11 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: uni.miskolc.ips.ilona:tracking-model:0.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: uni.miskolc.ips.ilona.measurement:model:1.0.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: uni.miskolc.ips.ilona.measurement:util:1.0.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-iostreams:2.2" level="project" />
+    <orderEntry type="library" name="Maven: gov.nist.math:jama:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-math:2.2" level="project" />
     <orderEntry type="module" module-name="tracking-persist" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.5" level="project" />
