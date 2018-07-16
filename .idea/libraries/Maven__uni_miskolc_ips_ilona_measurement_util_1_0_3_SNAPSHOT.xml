@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: uni.miskolc.ips.ilona.measurement:util:1.0.3-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/uni/miskolc/ips/ilona/measurement/util/1.0.3-SNAPSHOT/util-1.0.3-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/uni/miskolc/ips/ilona/measurement/util/1.0.3-SNAPSHOT/util-1.0.3-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/uni/miskolc/ips/ilona/measurement/util/1.0.3-SNAPSHOT/util-1.0.3-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
