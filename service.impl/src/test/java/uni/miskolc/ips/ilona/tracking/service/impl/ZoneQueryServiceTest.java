@@ -1,6 +1,7 @@
 package uni.miskolc.ips.ilona.tracking.service.impl;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,15 +12,16 @@ import uni.miskolc.ips.ilona.tracking.service.gateway.ZoneQueryServiceSIConfig;
 import java.util.Collection;
 
 public class ZoneQueryServiceTest {
+    private ZoneQueryService zoneQueryService;
+    @Before
+    public void setUp(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(ZoneQueryServiceSIConfig.class);
+        zoneQueryService = context.getBean("ZoneQueryGateway", ZoneQueryService.class);
+    }
 
 
     @Test
     public void testZoneConnection() {
-
-        ApplicationContext context = new AnnotationConfigApplicationContext(ZoneQueryServiceSIConfig.class);
-
-        ZoneQueryService zoneQueryService = context.getBean("ZoneQueryGateway", ZoneQueryService.class);
-
 
         String zoneDTO = zoneQueryService.getZoneById("183f0204-5029-4b33-a128-404ba5c68fa8").getName();
         Assert.assertTrue(zoneDTO.equals("bedroom"));
@@ -31,10 +33,6 @@ public class ZoneQueryServiceTest {
 
     @Test
     public void testListZones() {
-        ApplicationContext context = new AnnotationConfigApplicationContext(ZoneQueryServiceSIConfig.class);
-
-        ZoneQueryService zoneQueryService = context.getBean("ZoneQueryGateway", ZoneQueryService.class);
-
         Collection<ZoneDTO> zoneDTOS = zoneQueryService.listZones();
         Assert.assertTrue(zoneDTOS.size() == 3);
         /*for (Object zoneDTO : zoneDTOS) {
