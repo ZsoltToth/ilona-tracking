@@ -1,5 +1,7 @@
 package uni.miskolc.ips.ilona.tracking.service.gateway;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,6 +33,7 @@ import java.util.Map;
 @IntegrationComponentScan("uni.miskolc.ips.ilona.tracking.service.gateway")
 @MessageEndpoint
 public class PositionQueryServiceSIConfig {
+    private static final Logger LOG = LogManager.getLogger(PositionQueryServiceSIConfig.class);
     @Autowired
     private Environment env;
 
@@ -77,6 +80,7 @@ public class PositionQueryServiceSIConfig {
     @Bean
     @ServiceActivator(inputChannel = "stdErrChannel", autoStartup = "true")
     public CharacterStreamWritingMessageHandler logwriter00() {
+        LOG.error("Invalid gateway name in PositionQueryRequestChannel");
         return new CharacterStreamWritingMessageHandler(new BufferedWriter(new OutputStreamWriter(System.err)));
     }
 
@@ -91,23 +95,18 @@ public class PositionQueryServiceSIConfig {
         gateway.setHttpMethod(HttpMethod.GET);
         gateway.setExpectedResponseType(String.class);
         gateway.setOutputChannel(setAlgorithmReplyChannel());
+        LOG.info("algorithm set in Positioning server using Spring Integration");
         return gateway;
     }
 
     @Bean
     @ServiceActivator(inputChannel = "getLocationQueryChannel")
     public HttpRequestExecutingMessageHandler locationGateway() {
-        //System.out.println("fsaz");
-
-        //SpelExpressionParser expressionParser = new SpelExpressionParser();
-
-        //System.out.println(expressionParser.parseExpression("payload").getValue());
-
-
         HttpRequestExecutingMessageHandler gateway = new HttpRequestExecutingMessageHandler("http://" + System.getProperty("positioning.host") + ":" + System.getProperty("positioning.port") + "/getLocation");
         gateway.setHttpMethod(HttpMethod.GET);
         gateway.setExpectedResponseType(PositionDTO.class);
         gateway.setOutputChannel(getLocationReplyChannel());
+        LOG.info("Location requested from positioning server using Spring Integration");
         return gateway;
     }
 }

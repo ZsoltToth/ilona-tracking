@@ -3,6 +3,8 @@ package uni.miskolc.ips.ilona.tracking.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
@@ -22,6 +24,7 @@ import uni.miskolc.ips.ilona.tracking.controller.model.UserSecurityDetails;
 @Controller
 @RequestMapping(value = "/tracking/mobile")
 public class MobileRequestsController {
+	private static final Logger LOG = LogManager.getLogger(MobileRequestsController.class);
 
 	private UndirectedGraph<String, DefaultEdge> groundFloorGraph;
 	private UndirectedGraph<String, DefaultEdge> firstFloorGraph;
@@ -45,6 +48,7 @@ public class MobileRequestsController {
 		
 		UserSecurityDetails userDetails = (UserSecurityDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println(userDetails.toString());
+		LOG.info("trackPosition in MobileRequestsController. user:"+userDetails.toString());
 		return dto;
 	}
 	
