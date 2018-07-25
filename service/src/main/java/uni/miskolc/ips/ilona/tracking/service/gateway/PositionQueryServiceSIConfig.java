@@ -95,7 +95,7 @@ public class PositionQueryServiceSIConfig {
         gateway.setHttpMethod(HttpMethod.GET);
         gateway.setExpectedResponseType(String.class);
         gateway.setOutputChannel(setAlgorithmReplyChannel());
-        LOG.info("algorithm set in Positioning server using Spring Integration");
+        LOG.info("Algorithm set in Positioning server using Spring Integration");
         return gateway;
     }
 
