@@ -6,10 +6,10 @@
 	<parent>
 		<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 		<artifactId>tracking</artifactId>
-		<version>2.0.6-SNAPSHOT</version>
+		<version>2.0.8-SNAPSHOT</version>
 	</parent>
 	<artifactId>persist.mysql</artifactId>
-	<version>2.0.6-SNAPSHOT</version>
+	<version>2.0.8-SNAPSHOT</version>
 	<name>persist.mysql</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 			<artifactId>persist</artifactId>
-			<version>2.0.6-SNAPSHOT</version>
+			<version>2.0.8-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Logging dependencies -->
