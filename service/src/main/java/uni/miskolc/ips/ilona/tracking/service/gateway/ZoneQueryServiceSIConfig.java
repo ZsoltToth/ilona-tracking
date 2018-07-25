@@ -1,5 +1,7 @@
 package uni.miskolc.ips.ilona.tracking.service.gateway;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,6 +34,7 @@ import java.util.Map;
 @IntegrationComponentScan("uni.miskolc.ips.ilona.tracking.service.gateway")
 @MessageEndpoint
 public class ZoneQueryServiceSIConfig {
+    private static final Logger LOG = LogManager.getLogger(ZoneQueryServiceSIConfig.class);
     @Autowired
     private Environment env;
 
@@ -91,6 +94,7 @@ public class ZoneQueryServiceSIConfig {
     @Bean
     @ServiceActivator(inputChannel = "stdErrChannel", autoStartup = "true")
     public CharacterStreamWritingMessageHandler logwriter00() {
+        LOG.error("Invalid gateway name in PositionQueryRequestChannel");
         return new CharacterStreamWritingMessageHandler(new BufferedWriter(new OutputStreamWriter(System.err)));
     }
 
@@ -103,11 +107,11 @@ public class ZoneQueryServiceSIConfig {
         Map<String, Expression> uriVariableExpressions = new HashMap<>(1);
         uriVariableExpressions.put("zoneID", expressionParser.parseExpression("headers['zoneID']"));
         HttpRequestExecutingMessageHandler gateway = new HttpRequestExecutingMessageHandler("http://" + System.getProperty("measurement.host") + ":" + System.getProperty("measurement.port") + "/zones/{zoneID}");
-//       HttpRequestExecutingMessageHandler gateway = new HttpRequestExecutingMessageHandler("http://localhost:8081/zones/183f0204-5029-4b33-a128-404ba5c68fa8");
         gateway.setUriVariableExpressions(uriVariableExpressions);
         gateway.setHttpMethod(HttpMethod.GET);
         gateway.setExpectedResponseType(ZoneDTO.class);
         gateway.setOutputChannel(getZoneReplyChannel());
+        LOG.info("Get zone by id query was requested from measurement server with Spring Integration");
         return gateway;
     }
 
@@ -120,6 +124,7 @@ public class ZoneQueryServiceSIConfig {
         gateway.setHttpMethod(HttpMethod.GET);
         gateway.setExpectedResponseType(Collection.class);
         gateway.setOutputChannel(listZonesReplyChannel());
+        LOG.info("List Zones query was requested from measurement server with Spring Integration");
         return gateway;
     }
 }
