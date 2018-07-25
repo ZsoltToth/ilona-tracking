@@ -47,7 +47,6 @@ public class MobileRequestsController {
 		}
 		
 		UserSecurityDetails userDetails = (UserSecurityDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(userDetails.toString());
 		LOG.info("TrackPosition in MobileRequestsController. user:"+userDetails.toString());
 		return dto;
 	}
