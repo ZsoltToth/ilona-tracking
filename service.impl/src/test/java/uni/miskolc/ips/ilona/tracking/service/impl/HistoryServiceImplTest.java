@@ -1,7 +1,6 @@
 package uni.miskolc.ips.ilona.tracking.service.impl;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,6 @@ import uni.miskolc.ips.ilona.tracking.service.exceptions.UserNotFoundException;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.UUID;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringTestContext.class)
@@ -27,9 +25,6 @@ public class HistoryServiceImplTest {
     @Autowired
     HistoryService historyService;
 
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void addHistory() throws UserNotFoundException, ServiceGeneralErrorException {
@@ -40,36 +35,31 @@ public class HistoryServiceImplTest {
     @Ignore
     public void listHistoryByUser() throws UserNotFoundException {
         List<UserPosition> userPositionList = historyService.listHistoryByUser("1");
-        Assert.assertNotNull(userPositionList);
+        Assert.assertTrue(userPositionList.size() > 0);
     }
 
     @Ignore
     public void listCurrentPositions() {
         List<UserPosition> userPositions = historyService.listCurrentPositions();
-        Assert.assertNotNull(userPositions);
+        Assert.assertTrue(userPositions.size() > 0);
     }
 
     @Ignore
     public void listHistoriesByTimeInterval() {
         List<UserPosition> userPositions = historyService.listHistoriesByTimeInterval(new Timestamp(12), new Timestamp(System.currentTimeMillis()));
-        Assert.assertNotNull(userPositions);
+        Assert.assertTrue(userPositions.size() > 0);
     }
 
     @Ignore
     public void listHistoriesByTimeInterval1() throws UserNotFoundException {
         List<UserPosition> userPositions = historyService.listHistoriesByTimeInterval(new Timestamp(12), new Timestamp(System.currentTimeMillis()), "1");
-        Assert.assertNotNull(userPositions);
+        Assert.assertTrue(userPositions.size() > 0);
     }
 
     private Position positionBuilder() {
-        Position position = new Position();
-        position.setUUID(UUID.randomUUID());
-        Zone zone = new Zone();
-        zone.setId(UUID.randomUUID());
-        zone.setName("asd");
-        position.setZone(zone);
+        Zone zone = new Zone("DummyZone");
         Coordinate coordinate = new Coordinate(1, 2, 3);
-        position.setCoordinate(coordinate);
+        Position position = new Position(coordinate, zone);
         return position;
     }
 }

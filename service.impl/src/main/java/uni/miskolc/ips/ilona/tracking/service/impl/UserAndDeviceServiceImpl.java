@@ -7,6 +7,7 @@ import uni.miskolc.ips.ilona.tracking.model.UserData;
 import uni.miskolc.ips.ilona.tracking.persist.UserAndDeviceDAO;
 import uni.miskolc.ips.ilona.tracking.persist.exception.DeviceAlreadyExistsException;
 import uni.miskolc.ips.ilona.tracking.persist.exception.UserAlreadyExistsException;
+import uni.miskolc.ips.ilona.tracking.persist.exception.UserNotFoundInDatabaseException;
 import uni.miskolc.ips.ilona.tracking.service.UserAndDeviceService;
 import uni.miskolc.ips.ilona.tracking.service.exceptions.*;
 
@@ -54,7 +55,7 @@ public class UserAndDeviceServiceImpl implements UserAndDeviceService {
 
         try {
             user = userDeviceDAO.getUser(userid);
-        } catch (uni.miskolc.ips.ilona.tracking.persist.exception.UserNotFoundException e) {
+        } catch (UserNotFoundInDatabaseException e) {
             logger.error("No user exists with id: " + userid);
             throw new UserNotFoundException("No user exists with id: " + userid, e);
         } catch (Exception e) {
@@ -81,7 +82,7 @@ public class UserAndDeviceServiceImpl implements UserAndDeviceService {
     public void updateUser(UserData user) throws UserNotFoundException, ServiceGeneralErrorException {
         try {
             userDeviceDAO.updateUser(user);
-        } catch (uni.miskolc.ips.ilona.tracking.persist.exception.UserNotFoundException e) {
+        } catch (UserNotFoundInDatabaseException e) {
             String userid = "NULL";
             if (user != null) {
                 userid = user.getUserid();
@@ -103,7 +104,7 @@ public class UserAndDeviceServiceImpl implements UserAndDeviceService {
     public void deleteUser(UserData user) throws UserNotFoundException, ServiceGeneralErrorException {
         try {
             userDeviceDAO.deleteUser(user.getUserid());
-        } catch (uni.miskolc.ips.ilona.tracking.persist.exception.UserNotFoundException e) {
+        } catch (UserNotFoundInDatabaseException e) {
             String userid = "NULL";
             if (user != null) {
                 userid = user.getUserid();

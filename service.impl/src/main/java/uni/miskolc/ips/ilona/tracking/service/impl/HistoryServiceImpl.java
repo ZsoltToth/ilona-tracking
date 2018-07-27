@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import uni.miskolc.ips.ilona.measurement.model.position.Position;
 import uni.miskolc.ips.ilona.tracking.model.UserPosition;
 import uni.miskolc.ips.ilona.tracking.persist.HistoryDAO;
-import uni.miskolc.ips.ilona.tracking.persist.exception.UserNotFoundException;
+import uni.miskolc.ips.ilona.tracking.persist.exception.UserNotFoundInDatabaseException;
 import uni.miskolc.ips.ilona.tracking.service.HistoryService;
 import uni.miskolc.ips.ilona.tracking.service.UserAndDeviceService;
 import uni.miskolc.ips.ilona.tracking.service.exceptions.ServiceGeneralErrorException;
+import uni.miskolc.ips.ilona.tracking.service.exceptions.UserNotFoundException;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -29,7 +30,7 @@ public class HistoryServiceImpl implements HistoryService {
 
 
     @Override
-    public void addHistory(Position position, Timestamp timestamp, String userId) throws uni.miskolc.ips.ilona.tracking.service.exceptions.UserNotFoundException, ServiceGeneralErrorException {
+    public void addHistory(Position position, Timestamp timestamp, String userId) throws UserNotFoundException, ServiceGeneralErrorException {
         UserPosition userPosition = new UserPosition();
         userPosition.setTime(timestamp);
         userPosition.setPosition(position);
@@ -37,27 +38,27 @@ public class HistoryServiceImpl implements HistoryService {
 
         try {
             historyDAO.createHistory(userPosition);
-        } catch (UserNotFoundException e) {
+        } catch (UserNotFoundInDatabaseException e) {
             LOG.error("This user cannot be found:" + userId);
-            throw new uni.miskolc.ips.ilona.tracking.service.exceptions.UserNotFoundException("This user cannot be found:" + userId);
+            throw new UserNotFoundException("This user cannot be found:" + userId);
         }
         LOG.info("History Added to user: " + userPosition.getUser().getUserid());
     }
 
     @Override
-    public List<UserPosition> listHistoryByUser(String userId) throws uni.miskolc.ips.ilona.tracking.service.exceptions.UserNotFoundException {
+    public List<UserPosition> listHistoryByUser(String userId) throws UserNotFoundException {
         List<UserPosition> userPositions = null;
         try {
             userPositions = historyDAO.readHistoryByUserID(userId);
-        } catch (UserNotFoundException e) {
-            throw new uni.miskolc.ips.ilona.tracking.service.exceptions.UserNotFoundException("This user cannot be found:" + userId);
+        } catch (UserNotFoundInDatabaseException e) {
+            throw new UserNotFoundException("This user cannot be found:" + userId);
         }
         return userPositions;
     }
 
     @Override
     public List<UserPosition> listCurrentPositions() {
-        return historyDAO.ReadCurrentPositions();
+        return historyDAO.readCurrentPositions();
     }
 
     //TODO dao methods not yet created
