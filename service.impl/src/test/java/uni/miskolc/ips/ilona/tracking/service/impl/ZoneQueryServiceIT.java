@@ -11,7 +11,7 @@ import uni.miskolc.ips.ilona.tracking.service.gateway.ZoneQueryServiceSIConfig;
 
 import java.util.Collection;
 
-public class ZoneQueryServiceTest {
+public class ZoneQueryServiceIT {
     private ZoneQueryService zoneQueryService;
     @Before
     public void setUp(){
