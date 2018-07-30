@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 //-ea -Dpositioning.host=localhost -Dpositioning.port=8089
-public class PositionQueryServiceTest {
+public class PositionQueryServiceIT {
     private PositionQueryService positionQueryService;
     @Before
     public void setUp(){

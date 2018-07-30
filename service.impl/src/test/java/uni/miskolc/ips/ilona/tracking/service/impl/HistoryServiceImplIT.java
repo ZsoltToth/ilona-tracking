@@ -20,7 +20,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringTestContext.class)
-public class HistoryServiceImplTest {
+public class HistoryServiceImplIT {
 
     @Autowired
     HistoryService historyService;
