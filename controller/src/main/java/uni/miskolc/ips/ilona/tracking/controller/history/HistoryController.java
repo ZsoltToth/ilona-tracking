@@ -39,7 +39,7 @@ public class HistoryController {
             historyService.addHistory(userPosition.getPosition(), userPosition.getTime(), userPosition.getUser().getUserid());
         } catch (UserNotFoundException e) {
             LOG.error("No user found with id: " + userPosition.getUser().getUserid());
-            throw new UserNotFoundException();
+            throw e;
         }
         LOG.info("History added to user: " + userPosition.getUser().getUserid());
     }
@@ -47,12 +47,12 @@ public class HistoryController {
     @RequestMapping(value = "listHistoryByUserId/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<UserPositionDTO> listHistoryByUser(@PathVariable("userId") String userId) throws DatatypeConfigurationException, UserNotFoundException {
-        List<UserPositionDTO> userPositionDTOS = null;
+        List<UserPositionDTO> userPositionDTOS;
         try {
             userPositionDTOS = UserPositionDTOConverter.convertToUserPositionDTOList(historyService.listHistoryByUser(userId));
         } catch (UserNotFoundException e) {
             LOG.error("No user found with id: " + userId);
-            throw new UserNotFoundException();
+            throw e;
         }
         LOG.info("Path history of user " + userId + "accessed");
         return userPositionDTOS;
@@ -77,13 +77,16 @@ public class HistoryController {
     }
 
     @RequestMapping(value = "getHistoryByTime/{user}/{start}/{end}")
-    public List<UserPositionDTO> listHistoriesByTimeInterval(@PathVariable("start") Timestamp start, @PathVariable("end") Timestamp end, @PathVariable("user") String userId) throws DatatypeConfigurationException, UserNotFoundException {
+    public List<UserPositionDTO> listHistoriesByTimeInterval(@PathVariable("start") Timestamp start, @PathVariable("end") Timestamp end, @PathVariable("user") String userId) throws UserNotFoundException, DatatypeConfigurationException {
         List<UserPositionDTO> userPositionDTOS;
         try {
             userPositionDTOS = UserPositionDTOConverter.convertToUserPositionDTOList(historyService.listHistoriesByTimeInterval(start, end, userId));
         } catch (UserNotFoundException e) {
             LOG.error("No user found with id: " + userId);
-            throw new UserNotFoundException();
+            throw e;
+        } catch (DatatypeConfigurationException e) {
+            LOG.error("Timestamp conversion error");
+            throw e;
         }
         LOG.info(userId + " positions between " + start + " and " + end + " accessed");
         return userPositionDTOS;
