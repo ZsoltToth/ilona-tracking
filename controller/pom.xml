@@ -6,10 +6,10 @@
 	<parent>
 		<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 		<artifactId>tracking</artifactId>
-		<version>2.0.10-SNAPSHOT</version>
+		<version>2.0.20-SNAPSHOT</version>
 	</parent>
 	<artifactId>controller</artifactId>
-	<version>2.0.10-SNAPSHOT</version>
+	<version>2.0.20-SNAPSHOT</version>
 	<name>controller</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -44,22 +44,22 @@
 		<dependency>
 			<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 			<artifactId>model</artifactId>
-			<version>2.0.10-SNAPSHOT</version>
+			<version>2.0.20-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 			<artifactId>service</artifactId>
-			<version>2.0.10-SNAPSHOT</version>
+			<version>2.0.20-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 			<artifactId>persist</artifactId>
-			<version>2.0.10-SNAPSHOT</version>
+			<version>2.0.20-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uni.miskolc.ips.ilona.tracking</groupId>
 			<artifactId>util</artifactId>
-			<version>2.0.10-SNAPSHOT</version>
+			<version>2.0.20-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>uni.miskolc.ips.ilona.measurement</groupId>

@@ -16,9 +16,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import uni.miskolc.ips.ilona.tracking.controller.passwordrecovery.*;
 import uni.miskolc.ips.ilona.tracking.controller.track.GraphFunctions;
 import uni.miskolc.ips.ilona.tracking.controller.track.GraphFunctionsImp;
+import uni.miskolc.ips.ilona.tracking.persist.HistoryDAO;
 import uni.miskolc.ips.ilona.tracking.persist.UserAndDeviceDAO;
 import uni.miskolc.ips.ilona.tracking.persist.mysql.MySqlAndMybatisUserAndDeviceDAOImplementation;
+import uni.miskolc.ips.ilona.tracking.service.HistoryService;
 import uni.miskolc.ips.ilona.tracking.service.UserAndDeviceService;
+import uni.miskolc.ips.ilona.tracking.service.impl.HistoryServiceImpl;
 import uni.miskolc.ips.ilona.tracking.service.impl.UserAndDeviceServiceImpl;
 import uni.miskolc.ips.ilona.tracking.util.TrackingModuleCentralManager;
 
@@ -65,6 +68,16 @@ public class IlonaTrackingApplicationContext extends WebMvcConfigurerAdapter {
     @Bean(autowire = Autowire.BY_NAME)
     public PasswordGenerator passwordGenerator() {
         return new SimpleUUIDBasedPasswordGenerator();
+    }
+
+    @Bean(autowire = Autowire.BY_NAME)
+    public HistoryDAO historyDAO() {
+        return null;
+    }
+
+    @Bean(autowire = Autowire.BY_NAME)
+    public HistoryService historyService() {
+        return new HistoryServiceImpl(historyDAO(), userAndDeviceService());
     }
 
     @Bean
