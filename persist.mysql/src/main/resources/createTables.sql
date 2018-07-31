@@ -34,11 +34,27 @@ create table if not exists TrackingUserRoles(
     on delete cascade
 );
 
+create table if not exists Zone (
+	zoneId varchar(40) primary key,
+	name varchar(30)
+);
+
+create table if not exists Position (
+	posId varchar(40) primary key,
+	coord_X double,
+	coord_Y double,
+	coord_Z double,
+	zoneId varchar(40),
+	foreign key (zoneId) references Zone (zoneId)
+	on delete cascade
+);
+
+
 create table if not exists TrackingUsers(
 	userid varchar(20) not  null,
     username varchar(30) not null,
     email varchar(350) not null,
-    password varchar(80) not null,
+    psw varchar(80) not null,
     enabled tinyint(1) not null,
     lastlogindate timestamp not null, -- ezt engedi?!
     credentialsvaliduntil timestamp default now() not null, -- nem engedi not nullal, csak így defaulttal
@@ -48,7 +64,7 @@ create table if not exists TrackingUsers(
 );
 
 create table if not exists History(
-	  id varchar(20) not null AUTO_INCREMENT,
+	id integer auto_increment,
     userid varchar (20),
     posId varchar(40),
     timestmp timestamp not null,
